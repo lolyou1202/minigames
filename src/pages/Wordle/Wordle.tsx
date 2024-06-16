@@ -1,18 +1,24 @@
 import { useParams } from 'react-router-dom'
 import './Wordle.style.scss'
 import { russianAlphabet } from '../../constants/alphabet'
-import { useKeyPressEvent } from 'react-use'
 import classNames from 'classnames'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { clearLetter, enterWord, wrightLetter } from '../../redux/slices/wordle.slice'
+import {
+	clearLetter,
+	fetchWord,
+	setCurrentWord,
+	wrightLetter,
+} from '../../redux/slices/wordle.slice'
 import { wordLength } from '../../constants/settings'
+import { useKeyPressEvent } from 'react-use'
+import { useEffect } from 'react'
 
 export const Wordle = () => {
 	const { gridState, curentPosition } = useAppSelector(state => state.wordle)
 
 	const dispatch = useAppDispatch()
 
-	//let { word } = useParams()
+	const { word } = useParams()
 
 	russianAlphabet.forEach(char => {
 		useKeyPressEvent(
@@ -21,8 +27,14 @@ export const Wordle = () => {
 		)
 	})
 
-	useKeyPressEvent('Enter', () => handlePressEnter())
-	useKeyPressEvent('Backspace', () => handlePressBackspace())
+	useKeyPressEvent(
+		'Enter',
+		() => curentPosition.letter !== 0 && handlePressEnter()
+	)
+	useKeyPressEvent(
+		'Backspace',
+		() => curentPosition.letter !== 0 && handlePressBackspace()
+	)
 
 	const handlePressKey = (key: string) => {
 		dispatch(wrightLetter({ key }))
@@ -32,8 +44,19 @@ export const Wordle = () => {
 		dispatch(clearLetter())
 	}
 	const handlePressEnter = () => {
-		dispatch(enterWord())
+		dispatch(
+			fetchWord({
+				lang: 'ru-ru',
+				word: gridState[curentPosition.row]
+					.map(cell => cell.letter)
+					.join(''),
+			})
+		)
 	}
+
+	useEffect(() => {
+		word && dispatch(setCurrentWord({ word }))
+	}, [word])
 
 	return (
 		<div className='wordle'>
