@@ -1,0 +1,9 @@
+.smoothCorners {
+	position: relative;
+	background: #fff;
+	&-wrapper {
+		padding: 2px;
+		filter: drop-shadow(2px 0px 0px black) drop-shadow(-2px 0px 0px black)
+			drop-shadow(0px 2px 0px black) drop-shadow(0px -2px 0px black);
+	}
+}

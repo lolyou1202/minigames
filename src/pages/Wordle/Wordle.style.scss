@@ -1,0 +1,38 @@
+.wordle {
+	margin: 50px;
+}
+.wordGrid {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	&-row {
+		display: flex;
+		gap: 8px;
+	}
+	&-cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 64px;
+		height: 64px;
+		border: 2px solid #000;
+		color: #fff;
+		font-size: 32px;
+		line-height: 32px;
+		text-transform: uppercase;
+		&.empty {
+			background: #eaeaea;
+			color: #000;
+		}
+		&.match {
+			background: #49d457;
+		}
+		&.inaccurate {
+			background: #f8dd98;
+		}
+		&.miss {
+			background: #bababa;
+			color: #000;
+		}
+	}
+}
