@@ -32,4 +32,4 @@ export const russianAlphabet = [
 	'э',
 	'ю',
 	'я',
-]
+] as const
