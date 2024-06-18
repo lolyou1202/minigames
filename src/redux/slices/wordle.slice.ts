@@ -1,62 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { rowCount, wordLength } from '../../constants/settings'
-import axios from 'axios'
 import { AlphabetLetter, AlphabetState, CellState } from '../../types'
 import { russianAlphabet } from '../../constants/alphabet'
+import { fetchWord } from '../thunks/fetchWord'
+import { fetchRandomWord } from '../thunks/fetchRandomWord'
 
 export type LetterPosition = { row: number; letter: number }
 
-type ThunkArgs = {
-	lang: string
-	word: string
-}
-type ResultType = {
-	head: {}
-	def:
-		| {
-				text: string
-				pos: string
-				tr: [
-					{
-						text: string
-						pos: string
-						syn: { text: string }[]
-						mean: { text: string }[]
-						ex: {
-							text: string
-							tr: { text: string }[]
-						}[]
-					}
-				]
-		  }[]
-		| []
-}
-
-const apiKey = import.meta.env.VITE_DICTIONARY_APY_KEY
-const apiUrl = import.meta.env.VITE_DICTIONARY_URL
-
-export const fetchWord = createAsyncThunk<string | undefined, ThunkArgs>(
-	'wordle/fetchWord',
-	async ({ lang, word }, { rejectWithValue }) => {
-		try {
-			const response = await axios<ResultType>(
-				`${apiUrl}/api/v1/dicservice.json/lookup?key=${apiKey}&lang=${lang}&text=${word}`
-			)
-			return response.data.def[0]?.text
-		} catch (err) {
-			throw rejectWithValue(err)
-		}
-	}
-)
-
 const initialState: {
+	gameVariant: 'solveURL' | 'solveRandom'
 	gameStage: 'solve' | 'win' | 'lose'
 	warning: 'short' | 'notExist' | null
 	gridState: CellState[][]
 	alphabet: AlphabetState
-	curentWord: string | null
+	secretWord: string | null
 	curentPosition: LetterPosition
 } = {
+	gameVariant: 'solveRandom',
 	gameStage: 'solve',
 	warning: null,
 	gridState: [...Array(rowCount)].map((): CellState[] =>
@@ -71,7 +31,7 @@ const initialState: {
 		(a, v) => ({ ...a, [v]: 'empty' }),
 		{} as AlphabetState
 	),
-	curentWord: null,
+	secretWord: null,
 	curentPosition: { row: 0, letter: 0 },
 }
 
@@ -79,9 +39,9 @@ const wordleSlice = createSlice({
 	name: 'wordle',
 	initialState,
 	reducers: create => ({
-		setCurrentWord: create.reducer<{ word: string }>((state, action) => {
+		setSecretWord: create.reducer<{ word: string }>((state, action) => {
 			const { word } = action.payload
-			state.curentWord = word
+			state.secretWord = word
 		}),
 		wrightLetter: create.reducer<{ key: AlphabetLetter }>(
 			(state, action) => {
@@ -101,7 +61,7 @@ const wordleSlice = createSlice({
 			}
 		},
 		validateWord: state => {
-			let curentWord = [...state.curentWord!]
+			let curentWord = [...state.secretWord!]
 			const { row } = state.curentPosition
 
 			state.gridState[row].forEach((cell, index) => {
@@ -163,6 +123,12 @@ const wordleSlice = createSlice({
 				state.gameStage = 'lose'
 			}
 		},
+		setGameVariant: create.reducer<{
+			gameVariant: 'solveURL' | 'solveRandom'
+		}>((state, action) => {
+			const { gameVariant } = action.payload
+			state.gameVariant = gameVariant
+		}),
 		setGameStage: create.reducer<{ gameStage: 'solve' | 'win' | 'lose' }>(
 			(state, action) => {
 				const { gameStage } = action.payload
@@ -171,30 +137,38 @@ const wordleSlice = createSlice({
 		),
 	}),
 	extraReducers(builder) {
-		builder.addCase(fetchWord.fulfilled, (state, action) => {
-			const payload = action.payload
+		builder
+			.addCase(fetchWord.fulfilled, (state, action) => {
+				const payload = action.payload
 
-			if (!payload) {
-				wordleSlice.caseReducers.setWarning(state, {
-					payload: { warning: 'notExist' },
-					type: 'setWarning',
-				})
-				return
-			}
+				if (!payload) {
+					wordleSlice.caseReducers.setWarning(state, {
+						payload: { warning: 'notExist' },
+						type: 'setWarning',
+					})
+					return
+				}
 
-			wordleSlice.caseReducers.validateWord(state)
-			wordleSlice.caseReducers.checkGameStage(state)
-			wordleSlice.caseReducers.acceptWord(state)
-		})
+				wordleSlice.caseReducers.validateWord(state)
+				wordleSlice.caseReducers.checkGameStage(state)
+				wordleSlice.caseReducers.acceptWord(state)
+			})
+			.addCase(fetchRandomWord.fulfilled, (state, action) => {
+				const payload = action.payload
+				state.secretWord = payload
+			})
 	},
 })
 
 export const {
-	setCurrentWord,
+	setSecretWord,
 	wrightLetter,
 	clearLetter,
 	validateWord,
 	setWarning,
 	acceptWord,
+	checkGameStage,
+	setGameVariant,
+	setGameStage,
 } = wordleSlice.actions
 export default wordleSlice.reducer

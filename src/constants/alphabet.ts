@@ -5,7 +5,6 @@ export const russianAlphabet = [
 	'г',
 	'д',
 	'е',
-	'ё',
 	'ж',
 	'з',
 	'и',
