@@ -1,0 +1,16 @@
+.nav {
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		list-style: none;
+		&-item {
+			position: relative;
+			width: 100%;
+			button {
+				width: 100%;
+				white-space: nowrap;
+			}
+		}
+	}
+}

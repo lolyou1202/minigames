@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Wordle } from './pages/Wordle/Wordle'
+import { AppLayout } from './layouts/AppLayout/AppLayout'
 
 const router = createBrowserRouter([
 	{
@@ -8,6 +9,18 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <div>home</div>,
+			},
+			{
+				path: '/feed',
+				element: <div>feed</div>,
+			},
+			{
+				path: '/shop',
+				element: <div>shop</div>,
+			},
+			{
+				path: '/settings',
+				element: <div>settings</div>,
 			},
 			{
 				path: '/wordle',
@@ -27,7 +40,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-	return <RouterProvider router={router} />
+	return (
+		<RouterProvider router={router}>
+			<AppLayout />
+		</RouterProvider>
+	)
 }
 
 export default App

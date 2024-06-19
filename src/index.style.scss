@@ -1,5 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Days+One&display=swap');
+
 * {
 	padding: 0;
 	margin: 0;
+	font-family: 'Days One', sans-serif;
+	font-weight: 400;
+	font-style: normal;
 	box-sizing: border-box;
+}
+
+:root {
+	--dark: #353535;
+	--light: #f9f9f9;
+	--primary: #ffd336;
+	--secondary: #dbe0e5;
+	--background: #dbe0e5;
+
+	--borderWidth: 3px;
+	--defaultBorderInset: 0 0 0 var(--borderWidth) var(--dark) inset;
+	--defaultBorder: 0 0 0 var(--borderWidth) var(--dark);
+
+	--borderRadiusWide: 32px;
+	--borderRadiusRegular: 16px;
+	--borderRadiusSmall: 12px;
+
+	--shadow: 0 4px 0 0 var(--dark);
+
+	--sidebarWidth: 300px;
+	--sidebarCollapsedWidth: 96px;
 }
