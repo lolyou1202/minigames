@@ -6,6 +6,9 @@
 	width: 100%;
 	box-shadow: var(--defaultBorderInset);
 	border-radius: var(--borderRadiusRegular);
+	font-size: 24px;
+	line-height: 32px;
+	color: var(--dark);
 	transition: all .2s ease;
 	user-select: none;
 	&.withShadow {
@@ -45,6 +48,7 @@
 		width: 100%;
 		height: 100%;
 		border-radius: var(--borderRadiusRegular);
+		pointer-events: none;
 	}
 	svg {
 		flex-shrink: 0;

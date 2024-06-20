@@ -1,12 +1,11 @@
 import './Navigation.style.scss'
-import { useNavigate } from 'react-router-dom'
 import { NavigationItem } from './NavigationItem'
 import SVG from 'react-inlinesvg'
 
 const navList = {
 	home: {
 		label: 'Home',
-		url: '/home',
+		url: '/',
 	},
 	feed: {
 		label: 'Game feed',
@@ -24,19 +23,18 @@ const navList = {
 
 interface Props {
 	activeLink: string
-	onClickNavItem: (name: string) => void
+	onClickNavItem: (url: string) => void
 }
 
 export const Navigation = ({ activeLink, onClickNavItem }: Props) => {
-	const navigate = useNavigate()
-
 	const mappedList = Object.entries(navList)
 	return (
 		<nav className='nav'>
 			<ul className='nav__list'>
 				{mappedList.map(([name, { label, url }]) => (
 					<NavigationItem
-						isActive={activeLink === name}
+						key={name}
+						isActive={activeLink === url}
 						icon={
 							<SVG
 								src={`../../../icons/${name}.svg`}
@@ -44,10 +42,7 @@ export const Navigation = ({ activeLink, onClickNavItem }: Props) => {
 							/>
 						}
 						label={label}
-						onClick={() => {
-							onClickNavItem(name)
-							navigate(url)
-						}}
+						onClick={() => onClickNavItem(url)}
 					/>
 				))}
 			</ul>

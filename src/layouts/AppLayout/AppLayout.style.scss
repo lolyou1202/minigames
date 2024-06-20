@@ -1,10 +1,13 @@
 .appLayout {
 	display: flex;
 	height: 100vh;
+	background: var(--background);
 }
 
-.main {
+.mainSection {
 	display: flex;
 	flex-direction: column;
+	gap: 16px;
+	padding: 16px;
 	width: 100%;
 }

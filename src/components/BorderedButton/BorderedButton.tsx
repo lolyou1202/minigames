@@ -1,4 +1,5 @@
 import './BorderedButton.style.scss'
+import classNames from 'classnames'
 import { BorderedContainer } from '../BorderedContainer/BorderedContainer'
 
 export type BorderedButtonBackground =
@@ -16,6 +17,7 @@ export interface BorderedButtonProps {
 	icon?: React.ReactNode
 	text?: string
 	background?: BorderedButtonBackground
+	className?: string
 	onClick?: () => void
 	children?: React.ReactNode
 }
@@ -25,14 +27,16 @@ export const BorderedButton = ({
 	icon,
 	text,
 	background = 'light',
+	className,
 	onClick,
 	children,
 }: BorderedButtonProps) => {
+	const borderedButtonCN = classNames('borderedButton', className)
 	return (
-		<button className='borderedButton' onClick={onClick}>
+		<button className={borderedButtonCN} onClick={onClick}>
 			<BorderedContainer variant={variant} background={background}>
 				{icon}
-				<span>{text}</span>
+				{text && <span>{text}</span>}
 				{children}
 			</BorderedContainer>
 		</button>

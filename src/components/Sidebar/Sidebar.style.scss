@@ -3,35 +3,39 @@
 	flex-direction: column;
 	gap: 64px;
 	padding: 16px 19px 16px 16px;
-	min-width: calc(var(--sidebarCollapsedWidth) + 3px);
-	max-width: none;
-	width: calc(var(--sidebarCollapsedWidth) + 3px);
+	min-width: calc(var(--sidebarWidth) + 3px);
+	max-width: calc(var(--sidebarWidth) + 3px);
+	width: calc(var(--sidebarWidth) + 3px);
 	height: 100%;
 	background: var(--light);
 	box-shadow: -3px 0 0 var(--dark) inset;
 	overflow: hidden;
 	transition: all 0.4s ease;
-	&:hover {
-		min-width: calc(var(--sidebarWidth) + 3px);
-		max-width: calc(var(--sidebarWidth) + 3px);
-		width: calc(var(--sidebarWidth) + 3px);
+	span {
+		position: relative;
+		opacity: 1;
+		left: 0px;
+		transition: left 0.2s ease, opacity 0.4s ease;
+	}
+	&:not(:hover) {
+		min-width: calc(var(--sidebarCollapsedWidth) + 3px);
+		max-width: none;
+		width: calc(var(--sidebarCollapsedWidth) + 3px);
 		span {
-			opacity: 1;
-			transform: translateX(0px);
+			opacity: 0;
+			left: 20px;
 		}
 		.logo {
 			svg {
-				left: 0;
-				path {
-					opacity: 1;
+				left: -25px;
+				path:not(.puzzle) {
+					opacity: 0;
 				}
 			}
 		}
 	}
-	span {
-		opacity: 0;
-		transform: translateX(10px);
-		transition: all 0.2s ease;
+	a {
+		text-decoration: none;
 	}
 }
 
@@ -43,7 +47,7 @@
 	svg {
 		position: relative;
 		top: -6.2px;
-		left: -25px;
+		left: 0;
 		height: 120px;
 		overflow: visible;
 		transition: all 0.2s ease;
@@ -52,12 +56,12 @@
 			stroke: var(--dark);
 			stroke-width: 3px;
 			filter: drop-shadow(0 3px var(--dark));
-			transition: all 0.2s ease;
+			transition: all 0.4s ease;
 			&.puzzle {
 				fill: var(--primary);
 			}
 			&:not(.puzzle) {
-				opacity: 0;
+				opacity: 1;
 			}
 		}
 	}
