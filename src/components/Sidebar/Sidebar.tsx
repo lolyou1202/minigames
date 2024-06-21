@@ -1,19 +1,25 @@
 import './Sidebar.style.scss'
-import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import SVG from 'react-inlinesvg'
 import { Navigation } from '../Navigation/Navigation'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { LocationState } from '../../types'
 
 export const Sidebar = () => {
 	const location = useLocation()
 	const navigate = useNavigate()
 
-	const [activeLink, setLink] = React.useState(location.pathname)
+	const currentPath = location.pathname
+	const state = location.state as LocationState
 
 	const handleClickNavItem = (url: string) => {
-		setLink(url)
-		navigate(url)
+		navigate(url, {
+			state: {
+				from: state?.from
+					? [currentPath, ...state.from]
+					: [currentPath],
+			},
+		})
 	}
 
 	const sidebarCN = classNames('sidebar')
@@ -24,7 +30,7 @@ export const Sidebar = () => {
 				<SVG src={'../../../icons/fullLogo.svg'} width={186} />
 			</div>
 			<Navigation
-				activeLink={activeLink}
+				activeLink={currentPath}
 				onClickNavItem={handleClickNavItem}
 			/>
 		</aside>

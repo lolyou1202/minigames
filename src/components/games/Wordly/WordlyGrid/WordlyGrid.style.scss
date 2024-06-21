@@ -1,0 +1,39 @@
+.wordGrid {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	&-row {
+		display: flex;
+		gap: 8px;
+	}
+	&-cell {
+		width: 64px;
+		height: 64px;
+		text-transform: uppercase;
+		& > div {
+			height: 100%;
+			justify-content: center;
+			cursor: default;
+		}
+		&.empty {
+			& > div {
+				background: var(--light);
+			}
+		}
+		&.match {
+			& > div {
+				background: var(--green);
+			}
+		}
+		&.inaccurate {
+			& > div {
+				background: var(--orange);
+			}
+		}
+		&.miss {
+			& > div {
+				background: var(--secondary);
+			}
+		}
+	}
+}

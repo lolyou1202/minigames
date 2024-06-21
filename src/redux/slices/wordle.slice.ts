@@ -7,7 +7,7 @@ import { fetchRandomWord } from '../thunks/fetchRandomWord'
 
 export type LetterPosition = { row: number; letter: number }
 
-const initialState: {
+interface InitialState {
 	gameVariant: 'solveURL' | 'solveRandom'
 	gameStage: 'solve' | 'win' | 'lose'
 	warning: 'short' | 'notExist' | null
@@ -15,7 +15,9 @@ const initialState: {
 	alphabet: AlphabetState
 	secretWord: string | null
 	curentPosition: LetterPosition
-} = {
+}
+
+const initialState: InitialState = {
 	gameVariant: 'solveRandom',
 	gameStage: 'solve',
 	warning: null,

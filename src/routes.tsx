@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/feed',
+				path: 'feed',
 				element: (
 					<AppLayout variantHeader='withSearch' variantMain='empty'>
 						feed
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/feed/:game',
+				path: 'feed/:game',
 				element: (
 					<AppLayout variantHeader='withSearch' variantMain='empty'>
 						feed game
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/shop',
+				path: 'shop',
 				element: (
 					<AppLayout variantHeader='withSearch' variantMain='empty'>
 						shop
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/settings',
+				path: 'settings',
 				element: (
 					<AppLayout variantHeader='withSearch' variantMain='empty'>
 						settings
@@ -47,10 +47,11 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/wordle',
+				path: 'wordle',
 				element: (
 					<AppLayout
 						variantHeader='withBanner'
+						headerLabel='Wordly'
 						variantMain='withCanvas'
 					>
 						<Wordle />
@@ -58,10 +59,11 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: '/wordle/:word',
+				path: 'wordle/:word',
 				element: (
 					<AppLayout
 						variantHeader='withBanner'
+						headerLabel='Wordly'
 						variantMain='withCanvas'
 					>
 						<Wordle />

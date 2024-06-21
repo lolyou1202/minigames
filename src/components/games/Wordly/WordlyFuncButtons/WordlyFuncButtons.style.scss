@@ -1,0 +1,8 @@
+.wordle-funcButtons {
+	display: flex;
+	justify-content: space-between;
+	span {
+		display: flex;
+		gap: 8px;
+	}
+}
