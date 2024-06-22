@@ -2,8 +2,26 @@
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	width: 100%;
+	max-width: 856px;
 	&-row {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(12, 64px);
+		grid-template-rows: 64px;
 		gap: 8px;
+		&:nth-child(3) {
+			grid-template-columns: repeat(9, 64px) 208px;
+		}
+	}
+	&-key {
+		width: 100%;
+		max-width: 64px;
+		&.enter {
+			max-width: none;
+		}
+		& > div {
+			justify-content: center;
+			text-transform: uppercase;
+		}
 	}
 }
