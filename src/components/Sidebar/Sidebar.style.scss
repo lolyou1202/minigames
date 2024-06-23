@@ -17,7 +17,7 @@
 		left: 0px;
 		transition: left 0.2s ease, opacity 0.4s ease;
 	}
-	&:not(:hover) {
+	&.collapsed {
 		min-width: calc(var(--sidebarCollapsedWidth) + 3px);
 		max-width: none;
 		width: calc(var(--sidebarCollapsedWidth) + 3px);

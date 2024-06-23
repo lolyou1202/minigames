@@ -1,27 +1,72 @@
 .keyboard {
+	--gap: 8px;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: var(--gap);
 	width: 100%;
 	max-width: 856px;
 	&-row {
-		display: grid;
-		grid-template-columns: repeat(12, 64px);
-		grid-template-rows: 64px;
-		gap: 8px;
-		&:nth-child(3) {
-			grid-template-columns: repeat(9, 64px) 208px;
+		display: flex;
+		gap: var(--gap);
+		&.enter {
+			max-width: 208px;
 		}
 	}
 	&-key {
 		width: 100%;
 		max-width: 64px;
 		&.enter {
+			min-width: calc((100% - (var(--gap) * 3)) / 4);
 			max-width: none;
 		}
 		& > div {
 			justify-content: center;
 			text-transform: uppercase;
+			gap: var(--gap);
+			padding: 16px 0;
+		}
+	}
+	&-container {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		container-type: inline-size;
+		container-name: keyboard;
+	}
+}
+
+@container keyboard (max-width: 664px) {
+	.keyboard {
+		--gap: 4px;
+		&-key {
+			height: 48px;
+			& > div {
+				padding: 8px 0;
+			}
+			&.enter {
+				span {
+					display: none;
+				}
+			}
+		}
+	}
+}
+@container keyboard (max-width: 560px) {
+	.keyboard {
+		&-key {
+			span {
+				font-size: 16px;
+			}
+			&.enter {
+				svg {
+					width: 24px;
+				}
+			}
+			&.backspace {
+				svg {
+					width: 24px;
+				}
+			}
 		}
 	}
 }

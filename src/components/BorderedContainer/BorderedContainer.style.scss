@@ -5,7 +5,7 @@
 	padding: 16px;
 	width: 100%;
 	box-shadow: var(--defaultBorderInset);
-	border-radius: var(--borderRadiusRegular);
+	border-radius: var(--borderRadiusApp);
 	font-size: 24px;
 	line-height: 32px;
 	color: var(--dark);
@@ -47,7 +47,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		border-radius: var(--borderRadiusRegular);
+		border-radius: var(--borderRadiusApp);
 		pointer-events: none;
 	}
 	svg {

@@ -2,7 +2,7 @@
 	font-family: 'Days One';
 	font-style: normal;
 	font-weight: 400;
-	src: url('../public/fonts/DaysOne-Regular.woff2') format('woff2');
+	src: url('../fonts/DaysOne-Regular.woff2') format('woff2');
 }
 
 * {
@@ -29,6 +29,8 @@
 	--defaultBorderInset: 0 0 0 var(--borderWidth) var(--dark) inset;
 	--defaultBorder: 0 0 0 var(--borderWidth) var(--dark);
 
+	--borderRadiusApp: 16px;
+
 	--borderRadiusWide: 32px;
 	--borderRadiusRegular: 16px;
 	--borderRadiusSmall: 12px;
@@ -37,4 +39,11 @@
 
 	--sidebarWidth: 260px;
 	--sidebarCollapsedWidth: 96px;
+}
+
+@media (max-width: 560px) {
+	:root {
+		--borderWidth: 2px;
+		--borderRadiusApp: var(--borderRadiusSmall);
+	}
 }
