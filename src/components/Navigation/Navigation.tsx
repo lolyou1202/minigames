@@ -4,19 +4,19 @@ import SVG from 'react-inlinesvg'
 
 const navList = {
 	home: {
-		label: 'Home',
+		label: 'Главная',
 		url: '/',
 	},
 	feed: {
-		label: 'Game feed',
+		label: 'Лента игр',
 		url: '/feed',
 	},
 	shop: {
-		label: 'Shop',
+		label: 'Магазин',
 		url: '/shop',
 	},
 	settings: {
-		label: 'Settings',
+		label: 'Настройки',
 		url: '/settings',
 	},
 }

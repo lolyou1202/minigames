@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { rowCount, wordLength } from '../../constants/settings'
+import { ROW_COUNT, WORD_LENGTH } from '../../constants/settings'
 import { AlphabetLetter, AlphabetState, CellState } from '../../types'
 import { russianAlphabet } from '../../constants/alphabet'
 import { fetchWord } from '../thunks/fetchWord'
@@ -21,8 +21,8 @@ const initialState: InitialState = {
 	gameVariant: 'solveRandom',
 	gameStage: 'solve',
 	warning: null,
-	gridState: [...Array(rowCount)].map((): CellState[] =>
-		[...Array(wordLength)].map(
+	gridState: [...Array(ROW_COUNT)].map((): CellState[] =>
+		[...Array(WORD_LENGTH)].map(
 			(): CellState => ({
 				variant: 'empty',
 				letter: '',
@@ -67,31 +67,33 @@ const wordleSlice = createSlice({
 			const { row } = state.curentPosition
 
 			state.gridState[row].forEach((cell, index) => {
-				if (cell.letter === '') return
-				if (cell.letter === curentWord[index]) {
+				const { letter } = cell
+
+				if (letter === '') return
+
+				const alphabet = state.alphabet
+				const cellLetter = letter
+				const isNotMatch = alphabet[cellLetter] !== 'match'
+				const isNotInaccurate = alphabet[cellLetter] !== 'inaccurate'
+				const isNotMiss = alphabet[cellLetter] !== 'miss'
+
+				if (letter === curentWord[index]) {
 					curentWord[index] = '0'
 					cell.variant = 'match'
-					if (state.alphabet[cell.letter] !== 'match') {
-						state.alphabet[cell.letter] = 'match'
+					if (isNotMatch) {
+						alphabet[cellLetter] = 'match'
 					}
-				} else if (curentWord.includes(cell.letter)) {
-					const i = curentWord.indexOf(cell.letter)
+				} else if (curentWord.includes(letter)) {
+					const i = curentWord.indexOf(letter)
 					curentWord[i] = '1'
 					cell.variant = 'inaccurate'
-					if (
-						state.alphabet[cell.letter] !== 'inaccurate' &&
-						state.alphabet[cell.letter] !== 'match'
-					) {
-						state.alphabet[cell.letter] = 'inaccurate'
+					if (isNotInaccurate && isNotMatch) {
+						alphabet[cellLetter] = 'inaccurate'
 					}
 				} else {
 					cell.variant = 'miss'
-					if (
-						state.alphabet[cell.letter] !== 'inaccurate' &&
-						state.alphabet[cell.letter] !== 'match' &&
-						state.alphabet[cell.letter] !== 'miss'
-					) {
-						state.alphabet[cell.letter] = 'miss'
+					if (isNotInaccurate && isNotMatch && isNotMiss) {
+						alphabet[cellLetter] = 'miss'
 					}
 				}
 			})
@@ -121,7 +123,7 @@ const wordleSlice = createSlice({
 			if (isWin) {
 				state.gameStage = 'win'
 			}
-			if (row === rowCount) {
+			if (row === ROW_COUNT) {
 				state.gameStage = 'lose'
 			}
 		},
@@ -157,7 +159,10 @@ const wordleSlice = createSlice({
 			})
 			.addCase(fetchRandomWord.fulfilled, (state, action) => {
 				const payload = action.payload
-				state.secretWord = payload
+				wordleSlice.caseReducers.setSecretWord(state, {
+					type: 'setSecretWord',
+					payload: { word: payload },
+				})
 			})
 	},
 })

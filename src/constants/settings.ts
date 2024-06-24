@@ -1,3 +1,3 @@
-export const wordLength = 5
-export const rowCount = 5
-export const secretWordLength = 5
+export const WORD_LENGTH = 5
+export const ROW_COUNT = 5
+export const SECRET_WORD_LENGTH = 5

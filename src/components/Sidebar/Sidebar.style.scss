@@ -1,7 +1,7 @@
 .sidebar {
 	display: flex;
 	flex-direction: column;
-	gap: 64px;
+	justify-content: space-between;
 	padding: 16px 19px 16px 16px;
 	min-width: calc(var(--sidebarWidth) + 3px);
 	max-width: calc(var(--sidebarWidth) + 3px);
@@ -11,11 +11,16 @@
 	box-shadow: -3px 0 0 var(--dark) inset;
 	overflow: hidden;
 	transition: all 0.4s ease;
+	& > div {
+		display: flex;
+		flex-direction: column;
+		gap: 64px;
+	}
 	span {
 		position: relative;
 		opacity: 1;
 		left: 0px;
-		transition: left 0.2s ease, opacity 0.4s ease;
+		transition: left 0.2s ease, opacity 0.2s ease;
 	}
 	&.collapsed {
 		min-width: calc(var(--sidebarCollapsedWidth) + 3px);
@@ -56,7 +61,7 @@
 			stroke: var(--dark);
 			stroke-width: 3px;
 			filter: drop-shadow(0 3px var(--dark));
-			transition: all 0.4s ease;
+			transition: all 0.2s ease;
 			&.puzzle {
 				fill: var(--primary);
 			}

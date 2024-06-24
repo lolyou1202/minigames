@@ -4,7 +4,7 @@ import SVG from 'react-inlinesvg'
 
 const buttonsList = {
 	left: [
-		{ name: 'plusCircle', variant: 'primary' },
+		{ name: 'plusCircle', variant: 'secondary' },
 		{ name: 'share', variant: 'secondary' },
 		{ name: 'refresh', variant: 'secondary' },
 	],

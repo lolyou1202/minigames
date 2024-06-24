@@ -1,11 +1,16 @@
-export const useEncryptDecrypt = (text: string, secretKey: string) => {
-	let output = ''
+import CryptoJS from 'crypto-js'
 
-	for (let i = 0; i < text.length; i++) {
-		output += String.fromCharCode(
-			text.charCodeAt(i) ^ secretKey.charCodeAt(i % secretKey.length)
-		)
+export const useEncryptDecrypt = ({
+	message,
+	secretKey = 'wordly',
+}: {
+	message: string
+	secretKey?: string
+}) => {
+	return {
+		encrypt: CryptoJS.Rabbit.encrypt(message, secretKey).toString(),
+		decrypt: CryptoJS.Rabbit.decrypt(message, secretKey).toString(
+			CryptoJS.enc.Utf8
+		),
 	}
-	
-	return output
 }

@@ -15,25 +15,6 @@
 			justify-content: center;
 			cursor: default;
 		}
-		&.empty {
-			& > div {
-				background: var(--light);
-			}
-		}
-		&.match {
-			& > div {
-				background: var(--green);
-			}
-		}
-		&.inaccurate {
-			& > div {
-				background: var(--orange);
-			}
-		}
-		&.miss {
-			& > div {
-				background: var(--secondary);
-			}
-		}
+		
 	}
 }

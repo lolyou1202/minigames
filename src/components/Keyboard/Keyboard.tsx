@@ -1,65 +1,73 @@
 import './Keyboard.style.scss'
-import { russianAlphabet, russianAlphabetKeyboard } from '../../constants/alphabet'
+import { AlphabetLetter, AlphabetState } from '../../types'
+import {
+	russianAlphabet,
+	russianAlphabetKeyboard,
+} from '../../constants/alphabet'
+import { useKeyPressEvent } from 'react-use'
 import { BorderedButton } from '../BorderedButton/BorderedButton'
 import SVG from 'react-inlinesvg'
-import { useKeyPressEvent } from 'react-use'
+import classNames from 'classnames'
 
-export const Keyboard = () => {
-	russianAlphabet.forEach(char => {
-		useKeyPressEvent(
-			char,
-			() =>
-				curentPosition.letter < wordLength &&
-				gameStage === 'solve' &&
-				handlePressKey(char)
-		)
-	})
+interface Props {
+	alphabet?: AlphabetState
+	onPressKey?: (key: AlphabetLetter) => void
+	onPressBackspace?: () => void
+	onPressEnter?: () => void
+}
 
-	useKeyPressEvent(
-		'Enter',
-		() =>
-			curentPosition.letter !== 0 &&
-			gameStage === 'solve' &&
-			handlePressEnter()
-	)
-	useKeyPressEvent(
-		'Backspace',
-		() =>
-			curentPosition.letter !== 0 &&
-			gameStage === 'solve' &&
-			handlePressBackspace()
-	)
+export const Keyboard = ({
+	alphabet,
+	onPressKey,
+	onPressBackspace,
+	onPressEnter,
+}: Props) => {
+	onPressKey &&
+		russianAlphabet.forEach(key => {
+			useKeyPressEvent(key, () => onPressKey(key))
+		})
+	onPressBackspace && useKeyPressEvent('Backspace', () => onPressBackspace())
+	onPressEnter && useKeyPressEvent('Enter', () => onPressEnter())
 	return (
 		<div className='keyboard-container'>
 			<article className='keyboard'>
 				{russianAlphabetKeyboard.map((row, indexRow) => (
 					<div key={indexRow} className='keyboard-row'>
-						{row.map((key, indexCell) => (
-							<BorderedButton
-								key={indexCell}
-								variant='withoutShadow'
-								background='secondary'
-								text={key}
-								className='keyboard-key'
-							/>
-						))}
+						{row.map((key, indexCell) => {
+							const keyState = alphabet && alphabet[key]
+							const keyCN = classNames('keyboard-key', keyState)
+							return (
+								<BorderedButton
+									key={indexCell}
+									variant='withoutShadow'
+									background='secondary'
+									className={keyCN}
+									text={key}
+									onClick={
+										onPressKey && (() => onPressKey(key))
+									}
+								/>
+							)
+						})}
 						{indexRow === 1 && (
 							<BorderedButton
 								variant='withoutShadow'
-								background='secondary'
+								background='primary'
+								className='keyboard-key backspace'
 								icon={
 									<SVG
 										src='../../../icons/backspace.svg'
 										width={32}
 									/>
 								}
-								className='keyboard-key backspace'
+								onClick={onPressBackspace}
 							/>
 						)}
 						{indexRow === 2 && (
 							<BorderedButton
 								variant='withoutShadow'
 								background='primary'
+								className='keyboard-key enter'
 								icon={
 									<SVG
 										src='../../../icons/enter.svg'
@@ -67,7 +75,7 @@ export const Keyboard = () => {
 									/>
 								}
 								text='enter'
-								className='keyboard-key enter'
+								onClick={onPressEnter}
 							/>
 						)}
 					</div>

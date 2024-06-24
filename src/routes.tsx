@@ -58,18 +58,6 @@ export const router = createBrowserRouter([
 					</AppLayout>
 				),
 			},
-			{
-				path: 'wordle/:word',
-				element: (
-					<AppLayout
-						variantHeader='withBanner'
-						headerLabel='Wordly'
-						variantMain='withCanvas'
-					>
-						<Wordle />
-					</AppLayout>
-				),
-			},
 		],
 	},
 ])
