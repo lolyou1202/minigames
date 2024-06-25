@@ -42,6 +42,7 @@ export const Sidebar = () => {
 				/>
 			</div>
 			<BorderedButton
+				variant='withShadow'
 				background='primary'
 				icon={
 					<SVG

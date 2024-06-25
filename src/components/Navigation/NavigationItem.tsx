@@ -11,7 +11,7 @@ export const NavigationItem = ({ isActive, label, icon, onClick }: Props) => {
 	return (
 		<li className='nav__list-item'>
 			<BorderedButton
-				variant={isActive ? 'withoutShadow' : 'withoutBorder'}
+				variant={isActive ? 'withShadow' : 'withoutBorder'}
 				background={isActive ? 'primary' : 'transparent'}
 				icon={icon}
 				text={label}

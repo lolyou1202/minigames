@@ -1,6 +1,5 @@
 import './WordlyFuncButtons.style.scss'
-import { BorderedButton } from '../../../BorderedButton/BorderedButton'
-import SVG from 'react-inlinesvg'
+import { SingleWordleFuncButton } from './SingleWordleFuncButton'
 
 const buttonsList = {
 	left: [
@@ -31,16 +30,10 @@ export const WordlyFuncButtons = () => {
 					{side.map(button => {
 						const { name, variant } = button
 						return (
-							<BorderedButton
+							<SingleWordleFuncButton
 								key={name}
-								variant='withoutShadow'
 								background={variant}
-								icon={
-									<SVG
-										src={`../../../icons/${name}.svg`}
-										width={32}
-									/>
-								}
+								iconName={name}
 								onClick={handleClickFuncButton[name]}
 							/>
 						)
