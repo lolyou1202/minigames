@@ -9,24 +9,4 @@
 	line-height: 32px;
 	color: var(--dark);
 	cursor: pointer;
-	&.empty {
-		& > div {
-			background: var(--light);
-		}
-	}
-	&.match {
-		& > div {
-			background: var(--green);
-		}
-	}
-	&.inaccurate {
-		& > div {
-			background: var(--orange);
-		}
-	}
-	&.miss {
-		& > div {
-			background: var(--secondary);
-		}
-	}
 }

@@ -2,7 +2,7 @@ import CryptoJS from 'crypto-js'
 
 export const useEncryptDecrypt = ({
 	message,
-	secretKey = 'wordly',
+	secretKey = 'wordle',
 }: {
 	message: string
 	secretKey?: string
@@ -14,3 +14,4 @@ export const useEncryptDecrypt = ({
 		),
 	}
 }
+

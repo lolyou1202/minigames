@@ -8,8 +8,7 @@ import { fetchRandomWord } from '../thunks/fetchRandomWord'
 export type LetterPosition = { row: number; letter: number }
 
 interface InitialState {
-	gameVariant: 'solveURL' | 'solveRandom'
-	gameStage: 'solve' | 'win' | 'lose'
+	gameStage: 'solve' | 'win' | 'lose' | null
 	warning: 'short' | 'notExist' | null
 	gridState: CellState[][]
 	alphabet: AlphabetState
@@ -18,8 +17,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-	gameVariant: 'solveRandom',
-	gameStage: 'solve',
+	gameStage: null,
 	warning: null,
 	gridState: [...Array(ROW_COUNT)].map((): CellState[] =>
 		[...Array(WORD_LENGTH)].map(
@@ -127,12 +125,6 @@ const wordleSlice = createSlice({
 				state.gameStage = 'lose'
 			}
 		},
-		setGameVariant: create.reducer<{
-			gameVariant: 'solveURL' | 'solveRandom'
-		}>((state, action) => {
-			const { gameVariant } = action.payload
-			state.gameVariant = gameVariant
-		}),
 		setGameStage: create.reducer<{ gameStage: 'solve' | 'win' | 'lose' }>(
 			(state, action) => {
 				const { gameStage } = action.payload
@@ -175,7 +167,6 @@ export const {
 	setWarning,
 	acceptWord,
 	checkGameStage,
-	setGameVariant,
 	setGameStage,
 } = wordleSlice.actions
 export default wordleSlice.reducer

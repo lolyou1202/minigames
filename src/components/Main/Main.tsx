@@ -7,7 +7,10 @@ export const Main = <Props extends Omit<AppLayoutProps, 'variantHeader'>>({
 	children,
 }: Props) => {
 	return (
-		<main className='main'>
+		<main
+			className='main'
+			id='main'
+		>
 			{variantMain === 'withCanvas' && (
 				<BorderedContainer
 					variant='withShadow'
@@ -18,6 +21,10 @@ export const Main = <Props extends Omit<AppLayoutProps, 'variantHeader'>>({
 				</BorderedContainer>
 			)}
 			{variantMain === 'empty' && children}
+			<div
+				id='modalRoot'
+				className='modalRoot'
+			></div>
 		</main>
 	)
 }

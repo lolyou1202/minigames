@@ -16,12 +16,6 @@ const buttonsList = [
 		label: 'Правила игры',
 	},
 	{
-		name: 'share',
-		background: 'secondary',
-		icon: 'share',
-		label: 'Поделиться',
-	},
-	{
 		name: 'statistic',
 		background: 'secondary',
 		icon: 'chartBar',
@@ -40,7 +34,6 @@ export const StartMenu = () => {
 	const handleClickMenuButton = {
 		generator() {},
 		info() {},
-		share() {},
 		statistic() {},
 		settings() {},
 		exit() {},

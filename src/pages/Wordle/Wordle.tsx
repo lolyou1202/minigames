@@ -1,12 +1,17 @@
 import './Wordle.style.scss'
-import { WordlyGamePlay } from '../../components/games/Wordly/GamePlay/WordlyGamePlay'
+import { useSearchParams } from 'react-router-dom'
+import { WordleGamePlay } from '../../components/games/Wordly/GamePlay/WordleGamePlay'
 import { StartMenu } from '../../components/games/Wordly/StartMenu/StartMenu'
+import { ModalTemplate } from '../../components/modal/ModalTemplate'
 
 export const Wordle = () => {
+	const [searchParams] = useSearchParams()
+	const word = searchParams.get('word')
+
 	return (
 		<div className='wordle'>
-			<WordlyGamePlay />
-			{/*<StartMenu />*/}
+			{word ? <WordleGamePlay word={word} /> : <StartMenu />}
+			{/*<ModalTemplate />*/}
 		</div>
 	)
 }

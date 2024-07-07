@@ -3,7 +3,7 @@ import {
 	BorderedButtonProps,
 } from '../../../BorderedButton/BorderedButton'
 
-export const WordlyCell = <
+export const WordleCell = <
 	Props extends Pick<BorderedButtonProps, 'text' | 'className'>
 >(
 	props: Props

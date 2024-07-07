@@ -7,7 +7,7 @@ type ThunkArgs = {
 }
 
 export const fetchRandomWord = createAsyncThunk<string, ThunkArgs>(
-	'wordle/fetchRandomWord',
+	'wordly/fetchRandomWord',
 	async ({ lang, length }, { rejectWithValue }) => {
 		try {
 			const response = await axios<string[]>(

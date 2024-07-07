@@ -1,4 +1,4 @@
-import './WordlyFuncButtons.style.scss'
+import './WordleFuncButtons.style.scss'
 import { SingleWordleFuncButton } from './SingleWordleFuncButton'
 
 const buttonsList = {
@@ -14,7 +14,7 @@ const buttonsList = {
 	],
 } as const
 
-export const WordlyFuncButtons = () => {
+export const WordleFuncButtons = () => {
 	const handleClickFuncButton = {
 		plusCircle() {},
 		share() {},

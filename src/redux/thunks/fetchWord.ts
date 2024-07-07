@@ -31,7 +31,7 @@ const apiKey = import.meta.env.VITE_DICTIONARY_APY_KEY
 const apiUrl = import.meta.env.VITE_DICTIONARY_URL
 
 export const fetchWord = createAsyncThunk<string | undefined, ThunkArgs>(
-	'wordle/fetchWord',
+	'wordly/fetchWord',
 	async ({ lang, word }, { rejectWithValue }) => {
 		try {
 			const response = await axios<ResultType>(

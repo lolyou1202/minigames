@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
 				element: (
 					<AppLayout
 						variantHeader='withBanner'
-						headerLabel='Wordly'
+						headerLabel='Wordle'
 						variantMain='withCanvas'
 					>
 						<Wordle />

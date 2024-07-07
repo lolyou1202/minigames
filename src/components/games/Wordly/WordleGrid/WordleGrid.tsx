@@ -1,16 +1,16 @@
-import './WordlyGrid.style.scss'
+import './WordleGrid.style.scss'
 import { CellState } from '../../../../types'
-import { WordlyRow } from './WordlyRow'
+import { WordleRow } from './WordleRow'
 
 interface Props {
 	gridState: CellState[][]
 }
 
-export const WordlyGrid = ({ gridState }: Props) => {
+export const WordleGrid = ({ gridState }: Props) => {
 	return (
 		<article className='wordGrid'>
 			{gridState.map((row, index) => (
-				<WordlyRow key={index} row={row} />
+				<WordleRow key={index} row={row} />
 			))}
 		</article>
 	)

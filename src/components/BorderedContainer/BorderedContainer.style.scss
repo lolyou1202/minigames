@@ -9,7 +9,7 @@
 	font-size: 24px;
 	line-height: 32px;
 	color: var(--dark);
-	transition: all .2s ease;
+	transition: all 0.2s ease;
 	user-select: none;
 	&.withShadow {
 		box-shadow: var(--defaultBorderInset);
@@ -36,6 +36,18 @@
 		background: var(--primary);
 	}
 	&.secondary {
+		background: var(--secondary);
+	}
+	&.empty {
+		background: var(--light);
+	}
+	&.match {
+		background: var(--green);
+	}
+	&.inaccurate {
+		background: var(--orange);
+	}
+	&.miss {
 		background: var(--secondary);
 	}
 	&.transparent {

@@ -1,32 +1,32 @@
-import './WordlyGamePlay.style.scss'
+import './WordleGamePlay.style.scss'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks'
 import { AlphabetLetter } from '../../../../types'
 import { WORD_LENGTH } from '../../../../constants/settings'
 import {
 	clearLetter,
-	setGameVariant,
+	setGameStage,
 	setSecretWord,
 	setWarning,
 	wrightLetter,
 } from '../../../../redux/slices/wordle.slice'
 import { fetchWord } from '../../../../redux/thunks/fetchWord'
 import { fetchRandomWord } from '../../../../redux/thunks/fetchRandomWord'
-import { useSearchParams } from 'react-router-dom'
 import { useEncryptDecrypt } from '../../../../hooks/useEncryptDecrypt'
 import { message } from 'antd'
-import { WordlyFuncButtons } from '../WordlyFuncButtons/WordlyFuncButtons'
-import { WordlyGrid } from '../WordlyGrid/WordlyGrid'
+import { WordleFuncButtons } from '../WordleFuncButtons/WordleFuncButtons'
+import { WordleGrid } from '../WordleGrid/WordleGrid'
 import { Keyboard } from '../../../Keyboard/Keyboard'
 
-export const WordlyGamePlay = () => {
+interface Props {
+	word?: string
+}
+
+export const WordleGamePlay = ({ word }: Props) => {
 	const { gameStage, warning, gridState, alphabet, curentPosition } =
 		useAppSelector(state => state.wordle)
 
 	const dispatch = useAppDispatch()
-
-	const [searchParams, setSearchParams] = useSearchParams()
-	const word = searchParams.get('word')
 
 	const handlePressKey = (key: AlphabetLetter) => {
 		curentPosition.letter < WORD_LENGTH &&
@@ -80,22 +80,23 @@ export const WordlyGamePlay = () => {
 
 	React.useEffect(() => {
 		if (word) {
-			dispatch(setGameVariant({ gameVariant: 'solveURL' }))
 			const decryptedWord = useEncryptDecrypt({
 				message: word,
 			}).decrypt
+			console.log(decryptedWord)
+			dispatch(setGameStage({ gameStage: 'solve' }))
 			dispatch(setSecretWord({ word: decryptedWord }))
 		} else {
-			dispatch(setGameVariant({ gameVariant: 'solveRandom' }))
 			dispatch(fetchRandomWord({ lang: 'ru', length: 5 }))
 		}
 	}, [word])
+
 	return (
 		<>
 			<span>
-				<WordlyFuncButtons />
+				<WordleFuncButtons />
 				<span>
-					<WordlyGrid gridState={gridState} />
+					<WordleGrid gridState={gridState} />
 				</span>
 			</span>
 			<Keyboard
